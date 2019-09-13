@@ -10,8 +10,7 @@ exports.up = function(knex) {
               .string('description');
           tbl
               .boolean('completed')
-              .defaultTo(false)
-              .notNullable();
+              .defaultTo(false);
       })
       .createTable('resources', tbl => {
           tbl.increments();
@@ -54,8 +53,7 @@ exports.up = function(knex) {
               .notNullable();
           tbl
               .boolean('completed')
-              .defaultTo(false)
-              .notNullable();
+              .defaultTo(false);
           tbl
               .string('notes');
       });
