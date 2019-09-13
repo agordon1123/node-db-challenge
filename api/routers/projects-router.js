@@ -6,14 +6,32 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     Projects.getProjects()
-        .then(projects => res.status(200).json(projects))
+        .then(projects => {
+            projects.map(project => {
+                if (project.completed === 1) {
+                    project.completed = "true"
+                } else {
+                    project.completed = "false"
+                }
+            })
+            return res.status(200).json(projects);
+        })
         .catch(err => res.status(500).json(err));
 });
 
 router.get('/:id/tasks', (req, res) => {
     const { id } = req.params;
     Projects.getTasksForProject(id)
-        .then(tasks => res.status(200).json(tasks))
+        .then(tasks => {
+            tasks.map(task => {
+                if (task.completed === 1) {
+                    task.completed = "true"
+                } else {
+                    task.completed = "false"
+                }
+                return res.status(200).json(tasks)
+            })
+        })
         .catch(err => res.status(500).json(err))
 });
 
